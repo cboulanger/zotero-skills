@@ -22,8 +22,8 @@ More skills will be added as needed. Skills reference each other to avoid duplic
 
 Register this repository as a plugin marketplace:
 
-```
-/plugin marketplace add <your-github-username>/zotero-skills
+```shell
+/plugin marketplace add cboulanger/zotero-skills
 ```
 
 Or install a skill directly by path — copy the contents of a `SKILL.md` file into your project's `.claude/commands/` directory.
