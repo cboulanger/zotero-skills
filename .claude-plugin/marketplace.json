@@ -1,0 +1,26 @@
+{
+  "name": "zotero-skills",
+  "owner": {
+    "name": "Christian Boulanger",
+    "email": "cmboulanger@gmail.com"
+  },
+  "metadata": {
+    "description": "Skills for developing Zotero plugins and add-ons",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "zotero-skills",
+      "description": "Collection of skills for Zotero plugin development, covering plugin scaffolding, the Zotero JS API, dialogs/menus/preference panes, zotero-plugin-toolkit, and saved searches",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/zotero-plugin-basics",
+        "./skills/zotero-plugin-dialogs",
+        "./skills/zotero-api",
+        "./skills/zotero-plugin-toolkit",
+        "./skills/saved-search"
+      ]
+    }
+  ]
+}
