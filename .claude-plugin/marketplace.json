@@ -1,8 +1,8 @@
 {
   "name": "zotero-skills",
   "owner": {
-    "name": "Christian Boulanger",
-    "email": "cmboulanger@gmail.com"
+    "name": "Christian Boulanger (@cboulanger)",
+    "email": "info@bibliograph.org"
   },
   "metadata": {
     "description": "Skills for developing Zotero plugins and add-ons",
