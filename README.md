@@ -101,6 +101,11 @@ On each push to `main`, CI
 Claude Code only updates a marketplace install when the plugin `version` changes, so
 this is also what makes auto-update work for users.
 
+`main` is protected, so the release job pushes with the `RELEASE_TOKEN` repository
+secret: a fine-grained personal access token (this repository only, *Contents: read and
+write*) of a user on the protection's bypass list. Renew it before it expires, or
+releases will fail at the push step.
+
 Local setup (Node 22.14+ or 24): `npm install` installs commitlint and a husky
 `commit-msg` hook that rejects non-conventional messages before they are committed.
 `npm run check` (or `python tools/package_skill.py --check`) validates the skill;

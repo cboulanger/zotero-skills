@@ -82,9 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     concurrency: release
     permissions:
-      contents: write        # push the release commit and tag, create the release
-      issues: write
-      pull-requests: write
+      contents: read         # pushing and releasing use secrets.RELEASE_TOKEN
     steps:
       - uses: actions/checkout@v4
         with:
@@ -100,7 +98,10 @@ jobs:
       - run: npm ci
       - name: semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Fine-grained PAT of a user allowed to bypass the protection on main; the
+          # default GITHUB_TOKEN cannot push past it. With persist-credentials: false
+          # above, semantic-release uses this token for the push, tag and release.
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           GIT_AUTHOR_NAME: github-actions[bot]
           GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GIT_COMMITTER_NAME: github-actions[bot]
