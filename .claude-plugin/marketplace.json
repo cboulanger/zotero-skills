@@ -6,13 +6,13 @@
   },
   "metadata": {
     "description": "Skills for developing Zotero plugins and add-ons",
-    "version": "1.0.0"
+    "version": "2.0.0"
   },
   "plugins": [
     {
       "name": "zotero-skills",
       "description": "Build, port, debug and package Zotero 7–10 plugins: lifecycle and teardown, official plugin APIs (MenuManager, ItemTreeManager, ItemPaneManager, Reader, PreferencePanes), Fluent, the Zotero data API, dialogs, zotero-plugin-toolkit, saved searches, update manifests and version migrations",
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": {
         "name": "Christian Boulanger"
       },

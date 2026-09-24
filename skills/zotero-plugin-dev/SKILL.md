@@ -3,7 +3,7 @@ name: zotero-plugin-dev
 description: Build, port, debug, and package Zotero desktop plugins (extensions/add-ons, .xpi) for Zotero 7, 8, 9 and 10. Covers the bootstrapped architecture (manifest.json + bootstrap.js), lifecycle and window hooks, the official plugin APIs (MenuManager, ItemTreeManager, ItemPaneManager, PreferencePanes, Reader event listeners, Notifier), Fluent localization, prefs, dialogs, the Zotero JS data API (items, attachments, saved searches), update manifests, and version migrations. Use this skill whenever the user wants to write, scaffold, extend, fix, or update a Zotero plugin, port an old Zotero 6 overlay plugin, make a plugin compatible with a newer Zotero release, add a menu item/column/item-pane section/dialog to Zotero, or asks about zotero-plugin-template, zotero-plugin-toolkit, zotero-types or make-it-red — even if they just say "Zotero extension" or "Zotero add-on". Not for using a Zotero library via MCP/web API or for writing Zotero translators or CSL styles.
 license: CC0-1.0
 metadata:
-  version: 1.0.0
+  version: 2.0.0
 ---
 
 # Zotero plugin development
