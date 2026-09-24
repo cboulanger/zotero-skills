@@ -1,0 +1,26 @@
+{
+  "name": "zotero-skills",
+  "private": true,
+  "description": "Release and commit tooling for the zotero-skills Claude plugin marketplace. The version is managed by semantic-release; do not edit it by hand.",
+  "license": "CC0-1.0",
+  "repository": "github:cboulanger/zotero-skills",
+  "scripts": {
+    "prepare": "husky",
+    "check": "python tools/package_skill.py --check",
+    "commitlint": "commitlint --edit",
+    "release:dry": "semantic-release --dry-run --no-ci"
+  },
+  "engines": {
+    "node": "^22.14.0 || >=24.10.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
+    "@semantic-release/changelog": "^7.0.0",
+    "@semantic-release/exec": "^7.1.0",
+    "@semantic-release/git": "^11.0.1",
+    "conventional-changelog-conventionalcommits": "^9.3.1",
+    "husky": "^9.1.7",
+    "semantic-release": "^25.0.9"
+  }
+}

@@ -1,0 +1,108 @@
+name: skill
+
+# Versions are never edited by hand. On every push to main, semantic-release reads the
+# Conventional Commits since the last tag and, if any warrant it, releases:
+#   fix: → patch   feat: → minor   feat!: / "BREAKING CHANGE:" footer → major
+#   (docs:, chore:, ci:, refactor:, test:, style: … → no release)
+# It then writes the version into skills/*/SKILL.md and .claude-plugin/marketplace.json
+# (Claude Code auto-updates marketplace installs only when that version changes),
+# updates CHANGELOG.md, commits, tags v<version> and publishes a GitHub release with
+# the .skill file.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+
+      - name: Lint commits in the pull request
+        if: github.event_name == 'pull_request'
+        run: >
+          npx commitlint --verbose
+          --from ${{ github.event.pull_request.base.sha }}
+          --to ${{ github.event.pull_request.head.sha }}
+
+      - name: Lint pull request title (becomes the commit message on squash merge)
+        if: github.event_name == 'pull_request'
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: printf '%s\n' "$PR_TITLE" | npx commitlint --verbose
+
+      - name: Lint pushed commits
+        if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
+        run: >
+          npx commitlint --verbose
+          --from ${{ github.event.before }}
+          --to ${{ github.event.after }}
+
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate skill and marketplace manifest
+        run: python tools/package_skill.py --check
+
+      - name: Smoke-test bundled starter plugin
+        run: |
+          python skills/zotero-plugin-dev/scripts/build_xpi.py \
+            skills/zotero-plugin-dev/assets/minimal-plugin --out /tmp/xpi
+          node --check skills/zotero-plugin-dev/assets/minimal-plugin/bootstrap.js
+          node --check skills/zotero-plugin-dev/assets/minimal-plugin/my-plugin.js
+
+      - name: Package
+        run: python tools/package_skill.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: skill
+          path: dist/*.skill
+
+  release:
+    needs: [commitlint, validate]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    concurrency: release
+    permissions:
+      contents: write        # push the release commit and tag, create the release
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: npm ci
+      - name: semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: npx semantic-release
