@@ -1,14 +1,20 @@
----
-name: zotero-plugin-toolkit
-description: API reference for zotero-plugin-toolkit (v5.x). Covers UITool element creation, KeyboardManager, PromptManager (command palette), DialogHelper, SettingsDialogHelper, ProgressWindowHelper, FilePickerHelper, ClipboardHelper, ReaderTool, ExtraFieldTool, FieldHookManager, PatchHelper, LargePrefHelper, VirtualizedTableHelper, and lifecycle/cleanup patterns. Use when implementing plugin UI, keyboard shortcuts, dialogs, progress indicators, or item field customization.
----
+# zotero-plugin-toolkit API reference
 
-# zotero-plugin-toolkit API Reference
+**Package**: `zotero-plugin-toolkit` (v5.x)
+**Install**: `npm install zotero-plugin-toolkit`
+**Docs**: <https://windingwind.github.io/zotero-plugin-toolkit/> ·
+source: <https://github.com/windingwind/zotero-plugin-toolkit/tree/main/src>
 
-**Package**: `zotero-plugin-toolkit` (v5.x, supports Zotero 6/7/8)  
-**Install**: `npm install zotero-plugin-toolkit`  
-**Docs**: https://windingwind.github.io/zotero-plugin-toolkit/  
-**Local source**: `/Users/cboulanger/Code/zotero-plugin-toolkit/src/`
+The toolkit is bundled by default in windingwind's `zotero-plugin-template` (see
+`template-workflow.md`) and is most useful for dialogs, keyboard shortcuts, progress
+windows, the command palette, virtualized tables and `extra`-field handling. For menus,
+item-tree columns and item-pane sections on Zotero 8+, prefer the official managers in
+`plugin-apis.md` — they are maintained by Zotero and clean up by `pluginID`.
+
+Contents: Import styles · BasicTool · UITool · KeyboardManager · PromptManager ·
+DialogHelper · SettingsDialogHelper · ProgressWindowHelper · FilePickerHelper ·
+ClipboardHelper · ReaderTool · ExtraFieldTool · FieldHookManager · PatchHelper ·
+LargePrefHelper · VirtualizedTableHelper · waitUntil · Lifecycle
 
 ## Import Styles
 
@@ -454,17 +460,13 @@ prompt.unregisterAll();
 ui.unregisterAll();
 ```
 
-## Cross-Version Compatibility
+Toolkit cleanup covers only what the toolkit created. Notifier observers, chrome handles,
+timers and globals are still yours to undo (see the teardown checklist in SKILL.md).
 
-The toolkit handles these automatically — always prefer toolkit methods over raw API calls:
+## Cross-version helpers
 
-| Feature | Zotero 6 | Zotero 7+ |
-|---|---|---|
-| XUL element creation | `createElementNS(xulNS, tag)` | `createXULElement(tag)` |
-| Module import | `ChromeUtils.import()` | `ChromeUtils.importESModule()` |
+`BasicTool.createXULElement` and the toolkit's module-import helpers paper over Zotero 6
+vs 7+ differences (`createElementNS(xulNS, tag)` vs `createXULElement(tag)`,
+`ChromeUtils.import` vs `importESModule`). They do **not** cover the Zotero 8 and 10
+breaking changes (Bluebird removal, plural selection getters) — see `version-changes.md`.
 
-## Related Skills
-
-- See [zotero-plugin-basics](../zotero-plugin-basics/SKILL.md) for plugin scaffolding and setup.
-- See [zotero-plugin-dialogs](../zotero-plugin-dialogs/SKILL.md) for XHTML dialog structure and script loading.
-- See [zotero-api](../zotero-api/SKILL.md) for the Zotero data API (items, attachments, sync, etc.).

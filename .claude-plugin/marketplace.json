@@ -11,15 +11,25 @@
   "plugins": [
     {
       "name": "zotero-skills",
-      "description": "Collection of skills for Zotero plugin development, covering plugin scaffolding, the Zotero JS API, dialogs/menus/preference panes, zotero-plugin-toolkit, and saved searches",
+      "description": "Build, port, debug and package Zotero 7–10 plugins: lifecycle and teardown, official plugin APIs (MenuManager, ItemTreeManager, ItemPaneManager, Reader, PreferencePanes), Fluent, the Zotero data API, dialogs, zotero-plugin-toolkit, saved searches, update manifests and version migrations",
+      "version": "1.0.0",
+      "author": {
+        "name": "Christian Boulanger"
+      },
+      "homepage": "https://github.com/cboulanger/zotero-skills",
+      "repository": "https://github.com/cboulanger/zotero-skills",
+      "license": "CC0-1.0",
+      "keywords": [
+        "zotero",
+        "zotero-plugin",
+        "xpi",
+        "firefox",
+        "bootstrap"
+      ],
       "source": "./",
       "strict": false,
       "skills": [
-        "./skills/zotero-plugin-basics",
-        "./skills/zotero-plugin-dialogs",
-        "./skills/zotero-api",
-        "./skills/zotero-plugin-toolkit",
-        "./skills/saved-search"
+        "./skills/zotero-plugin-dev"
       ]
     }
   ]
