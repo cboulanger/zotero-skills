@@ -1,0 +1,29 @@
+{
+  "skill_name": "zotero-plugin-dev",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write me a Zotero plugin that adds a right-click menu entry on items to copy a formatted citation key (AuthorYear) to the clipboard. Should work on Zotero 8 through 10.",
+      "expected_output": "Bootstrapped plugin using MenuManager on main/library/item, prefixed Fluent IDs with .label, clipboard via Zotero.Utilities.Internal.copyTextToClipboard or nsIClipboardHelper, strict_max_version 10.0.*, packaged xpi.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My old Zotero plugin uses getSelectedCollection() and Zotero.Promise.map and it broke after updating. What do I need to change?",
+      "expected_output": "Identifies Zotero 10 plural getters and Zotero 8 Bluebird removal, gives replacements, mentions migrate-fx140 script and bumping strict_max_version.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Add an item pane section to my zotero plugin that shows the item's DOI resolved against Crossref, and a column in the item list with the citation count.",
+      "expected_output": "Uses ItemPaneManager.registerSection with async rendering and ItemTreeManager.registerColumn with synchronous cached dataProvider; explains teardown.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "In my Zotero plugin I want a toolbar button that opens a dialog listing all items tagged 'to-read' in a table with checkboxes, so the user can pick some and create a saved search from them. Needs to work on Zotero 10.",
+      "expected_output": "XHTML dialog opened via openDialog with arguments, windowtype for re-focus, Zotero.Search without the legacy required argument, VirtualizedTable stylesheets and container height (or DialogHelper), dialogs closed in shutdown, toolbar button tracked and removed per window.",
+      "files": []
+    }
+  ]
+}

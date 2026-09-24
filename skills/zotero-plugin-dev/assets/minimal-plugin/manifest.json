@@ -1,0 +1,14 @@
+{
+  "manifest_version": 2,
+  "name": "My Plugin",
+  "version": "0.1.0",
+  "description": "Starter Zotero plugin",
+  "applications": {
+    "zotero": {
+      "id": "my-plugin@example.org",
+      "update_url": "https://example.org/my-plugin/updates.json",
+      "strict_min_version": "7.0",
+      "strict_max_version": "10.0.*"
+    }
+  }
+}
